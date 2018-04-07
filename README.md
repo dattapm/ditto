@@ -1,0 +1,2 @@
+# ditto
+Ditto coding assignment
