@@ -21,8 +21,7 @@ Extra test cases:
 
 Time complexity:
 
- The solution provided is a very basic one keeping in mind the available time.
- The time complexity for the same is O(n^2), since we are running two for loops to get the co0linear points.
+ The time complexity for the solution provided is O(n^2), since we are running two for loops to get the collinear points.
  
 Cases where code can fail:
 
