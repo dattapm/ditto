@@ -49,11 +49,11 @@ class Line(Point):
 
     def getSlope(self):
         """
-        slope = abs(Y2 - Y1/X2- X1
+        slope = (Y2 - Y1/X2- X1
 
         Returns: slope
         """
-        slope = abs((self._point_1.getY() - self._point_2.getY()) / (self._point_1.getX() - self._point_2.getX()))
+        slope = ((self._point_1.getY() - self._point_2.getY()) / (self._point_1.getX() - self._point_2.getX()))
         return slope
 
     def getPoint1(self):
@@ -78,6 +78,7 @@ class ColinearPoints(object):
         :param points: A list of Point objects in a 2D plane.
         """
         self._points = points
+        self._global_slope_points = {}
         self._colinear_points = []
 
     def calculateSlopesOfPoints(self):
@@ -99,14 +100,23 @@ class ColinearPoints(object):
                 local_slopes[slope].add(line.getPoint2())
 
             for key in local_slopes.keys():
-                if len(local_slopes[key]) > 2:
-                    local_co_points = local_slopes[key]
-                    self._colinear_points.append(local_co_points)
+                if key in self._global_slope_points:
+                    # Check if there is an intersection.
+                    if self._global_slope_points[key] & local_slopes[key]:
+                        self._global_slope_points[key] = self._global_slope_points[key]|local_slopes[key]
+                else:
+                        self._global_slope_points[key] = local_slopes[key]
+
 
     def getColinearPoints(self):
         """
         :return: co-linear points as a list.
         """
+
+        for key in self._global_slope_points.keys():
+            if len(self._global_slope_points[key]) > 2:
+                self._colinear_points.append(self._global_slope_points[key])
+
         return self._colinear_points
 
 
@@ -157,7 +167,7 @@ def write_output_file(points, file):
     """
     Write to an output file.
 
-    :param points: List of tuples. Each tuple is a collection of co-linear Points.
+    :param points: List of sets. Each set is a collection of co-linear Points.
 
     :param file: output file.
 
@@ -182,7 +192,7 @@ def write_output_file(points, file):
 
 if __name__ == "__main__":
 
-    input_file_name = "./test_example1.csv"
+    input_file_name = "./test_example.csv"
     output_file_name = "./test_output.csv"
     colinear_points = []
 
