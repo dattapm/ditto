@@ -183,7 +183,7 @@ def write_output_file(points, file):
 
 if __name__ == "__main__":
 
-    input_file_name = "./test_example1.csv"
+    input_file_name = "./test_example.csv"
     output_file_name = "./test_output.csv"
     colinear_points = []
 
