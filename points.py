@@ -170,7 +170,6 @@ def write_output_file(points, file):
             for t in point:
                 local_s.append(t.getX())
                 local_s.append(t.getY())
-            local_s.sort()
 
             s = str(index + 1) + "," + ",".join(str(x) for x in local_s)
             f.write(s)
@@ -183,7 +182,7 @@ def write_output_file(points, file):
 
 if __name__ == "__main__":
 
-    input_file_name = "./test_example.csv"
+    input_file_name = "./test_example1.csv"
     output_file_name = "./test_output.csv"
     colinear_points = []
 
